@@ -1,9 +1,4 @@
-import { Suspense } from 'react'
-import { AppLayout } from '@/components/layout/app-layout'
-import { getEmployees } from './actions'
-import { EmployeeList } from './employee-list'
-
-function EmployeesSkeleton() {
+export default function Loading() {
   return (
     <div className="p-6">
       <div className="h-8 bg-gray-200 rounded w-32 mb-6 animate-pulse"></div>
@@ -26,26 +21,5 @@ function EmployeesSkeleton() {
         ))}
       </div>
     </div>
-  )
-}
-
-async function EmployeesContent() {
-  const employees = await getEmployees()
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Employees</h1>
-      <EmployeeList initialEmployees={employees} />
-    </div>
-  )
-}
-
-export default function Employees() {
-  return (
-    <AppLayout>
-      <Suspense fallback={<EmployeesSkeleton />}>
-        <EmployeesContent />
-      </Suspense>
-    </AppLayout>
   )
 }

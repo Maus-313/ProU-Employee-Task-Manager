@@ -1,10 +1,4 @@
-import { Suspense } from 'react'
-import { AppLayout } from '@/components/layout/app-layout'
-import { getTasks } from './actions'
-import { getEmployees } from '../employees/actions'
-import { TaskList } from './task-list'
-
-function TasksSkeleton() {
+export default function Loading() {
   return (
     <div className="p-6">
       <div className="h-8 bg-gray-200 rounded w-24 mb-6 animate-pulse"></div>
@@ -28,26 +22,5 @@ function TasksSkeleton() {
         ))}
       </div>
     </div>
-  )
-}
-
-async function TasksContent() {
-  const [tasks, employees] = await Promise.all([getTasks(), getEmployees()])
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Tasks</h1>
-      <TaskList initialTasks={tasks} employees={employees} />
-    </div>
-  )
-}
-
-export default function Tasks() {
-  return (
-    <AppLayout>
-      <Suspense fallback={<TasksSkeleton />}>
-        <TasksContent />
-      </Suspense>
-    </AppLayout>
   )
 }
