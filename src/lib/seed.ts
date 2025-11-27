@@ -1,7 +1,16 @@
+import bcrypt from 'bcryptjs'
 import { db } from './db'
-import { employees, tasks } from './schema'
+import { users, employees, tasks } from './schema'
 
 export async function seed() {
+  // Seed demo user
+  const hashedPassword = await bcrypt.hash('password123', 10)
+  await db.insert(users).values({
+    email: 'admin@example.com',
+    password: hashedPassword,
+    name: 'Admin User',
+  })
+
   // Seed employees
   const employeeData = [
     { name: 'John Doe', email: 'john@example.com', position: 'Developer', department: 'Engineering' },
@@ -39,4 +48,5 @@ export async function seed() {
   await db.insert(tasks).values(taskData)
 
   console.log('Database seeded successfully!')
+  console.log('Demo user created: admin@example.com / password123')
 }
