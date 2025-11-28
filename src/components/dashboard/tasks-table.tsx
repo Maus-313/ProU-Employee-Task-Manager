@@ -7,6 +7,8 @@ type Task = {
   id: string
   title: string
   priority: "low" | "medium" | "high"
+  createdAt: Date | null
+  dueDate: Date | null
   employeeName?: string | null
 }
 
@@ -15,32 +17,47 @@ interface TasksTableProps {
 }
 
 export function TasksTable({ initialTasks }: TasksTableProps) {
-  const [sortOrder, setSortOrder] = useState("none")
+  const [sortColumn, setSortColumn] = useState<"priority" | "deadline" | null>(null)
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null)
 
-  const sortTasks = (tasks: Task[], order: string) => {
-    if (order === "none") return tasks
-    const priorityOrder = { low: 1, medium: 2, high: 3 }
+  const sortTasks = (tasks: Task[], column: string | null, order: string | null) => {
+    if (!column || !order) return tasks
     return [...tasks].sort((a, b) => {
-      if (order === "low-to-high") {
-        return priorityOrder[a.priority] - priorityOrder[b.priority]
-      } else if (order === "high-to-low") {
-        return priorityOrder[b.priority] - priorityOrder[a.priority]
+      if (column === "priority") {
+        const priorityOrder = { low: 1, medium: 2, high: 3 }
+        const aVal = priorityOrder[a.priority]
+        const bVal = priorityOrder[b.priority]
+        return order === "asc" ? aVal - bVal : bVal - aVal
+      } else if (column === "deadline") {
+        const aDate = a.dueDate ? new Date(a.dueDate).getTime() : Infinity
+        const bDate = b.dueDate ? new Date(b.dueDate).getTime() : Infinity
+        return order === "asc" ? aDate - bDate : bDate - aDate
       }
       return 0
     })
   }
 
-  const sortedTasks = sortTasks(initialTasks, sortOrder)
+  const sortedTasks = sortTasks(initialTasks, sortColumn, sortOrder)
 
-  const handlePrioritySort = () => {
-    if (sortOrder === "none") setSortOrder("low-to-high")
-    else if (sortOrder === "low-to-high") setSortOrder("high-to-low")
-    else setSortOrder("none")
+  const handleSort = (column: "priority" | "deadline") => {
+    if (sortColumn !== column) {
+      setSortColumn(column)
+      setSortOrder("asc")
+    } else {
+      if (sortOrder === "asc") setSortOrder("desc")
+      else if (sortOrder === "desc") {
+        setSortColumn(null)
+        setSortOrder(null)
+      } else {
+        setSortOrder("asc")
+      }
+    }
   }
 
-  const getSortIcon = () => {
-    if (sortOrder === "low-to-high") return <ChevronUp className="inline h-4 w-4 ml-1" />
-    if (sortOrder === "high-to-low") return <ChevronDown className="inline h-4 w-4 ml-1" />
+  const getSortIcon = (column: "priority" | "deadline") => {
+    if (sortColumn !== column) return null
+    if (sortOrder === "asc") return <ChevronUp className="inline h-4 w-4 ml-1" />
+    if (sortOrder === "desc") return <ChevronDown className="inline h-4 w-4 ml-1" />
     return null
   }
 
@@ -50,9 +67,15 @@ export function TasksTable({ initialTasks }: TasksTableProps) {
         <thead className="bg-gray-50">
           <tr>
             <th className="p-4 text-left font-semibold">Task</th>
+            <th className="p-4 text-left font-semibold">Date</th>
             <th className="p-4 text-left font-semibold">
-              <button onClick={handlePrioritySort} className="flex items-center hover:bg-gray-100 px-2 py-1 rounded">
-                Priority {getSortIcon()}
+              <button onClick={() => handleSort("priority")} className="flex items-center hover:bg-gray-100 px-2 py-1 rounded">
+                Priority {getSortIcon("priority")}
+              </button>
+            </th>
+            <th className="p-4 text-left font-semibold">
+              <button onClick={() => handleSort("deadline")} className="flex items-center hover:bg-gray-100 px-2 py-1 rounded">
+                Deadline {getSortIcon("deadline")}
               </button>
             </th>
             <th className="p-4 text-left font-semibold">Assigned To</th>
@@ -62,7 +85,9 @@ export function TasksTable({ initialTasks }: TasksTableProps) {
             {sortedTasks.map((task) => (
               <tr key={task.id} className="border-t">
                 <td className="p-4">{task.title}</td>
+                <td className="p-4">{task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'N/A'}</td>
                 <td className="p-4 capitalize">{task.priority}</td>
+                <td className="p-4">{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}</td>
                 <td className="p-4">{task.employeeName || 'Unassigned'}</td>
               </tr>
             ))}

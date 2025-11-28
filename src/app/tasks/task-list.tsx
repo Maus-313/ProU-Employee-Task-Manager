@@ -23,7 +23,6 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
   const [tasks, setTasks] = useState(initialTasks)
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [editingTask, setEditingTask] = useState<Task | null>(null)
-  const [sortOrder, setSortOrder] = useState("none")
 
   const handleCreate = async (formData: FormData) => {
     await createTask(formData)
@@ -44,20 +43,6 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
     window.location.reload()
   }
 
-  const sortTasks = (tasks: Task[], order: string) => {
-    if (order === "none") return tasks
-    const priorityOrder = { low: 1, medium: 2, high: 3 }
-    return [...tasks].sort((a, b) => {
-      if (order === "low-to-high") {
-        return priorityOrder[a.priority] - priorityOrder[b.priority]
-      } else if (order === "high-to-low") {
-        return priorityOrder[b.priority] - priorityOrder[a.priority]
-      }
-      return 0
-    })
-  }
-
-  const sortedTasks = sortTasks(tasks, sortOrder)
 
   return (
     <div>
@@ -133,22 +118,8 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
         </Dialog>
       </div>
 
-      <div className="mb-4">
-        <Label htmlFor="sort-priority">Sort by Priority</Label>
-        <Select value={sortOrder} onValueChange={setSortOrder}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select sort order" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="none">None</SelectItem>
-            <SelectItem value="low-to-high">Low to High</SelectItem>
-            <SelectItem value="high-to-low">High to Low</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
       <div className="grid gap-4">
-        {sortedTasks.map((task) => (
+        {tasks.map((task) => (
           <Card key={task.id}>
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
@@ -240,7 +211,8 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
               <p>Description: {task.description}</p>
               <p>Status: {task.status}</p>
               <p>Priority: {task.priority}</p>
-              <p>Due Date: {task.dueDate}</p>
+              <p>Created Date: {task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'N/A'}</p>
+              <p>Due Date: {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}</p>
               <p>Assigned to: {task.employee?.name || 'Unassigned'}</p>
             </CardContent>
           </Card>
