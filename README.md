@@ -59,4 +59,18 @@ src/
 
 ## Deployment
 
-Deploy to Vercel, Netlify, or any Next.js-compatible platform. Set `DATABASE_URL` in your deployment env.
+The app is deployed on Netlify at: [https://prou-employee-task-manager.netlify.app](https://prou-employee-task-manager.netlify.app)
+
+### Netlify Deployment
+1. Install Netlify CLI: `npm install -g netlify-cli`
+2. Login: `netlify login`
+3. Deploy: `netlify deploy --create-site <site-name> --prod`
+4. For continuous deployment, connect your GitHub repo in Netlify dashboard
+
+### Environment Variables
+Set the following in your deployment environment:
+- `DATABASE_URL` - Your NeonDB connection string
+- `NEXTAUTH_SECRET` - Random secret for NextAuth
+- `NEXTAUTH_URL` - Your deployment URL
+
+Deploy to Vercel, Netlify, or any Next.js-compatible platform.
