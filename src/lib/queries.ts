@@ -30,3 +30,14 @@ export async function getAllTasksWithEmployees() {
     .from(tasks)
     .leftJoin(employees, eq(tasks.employeeId, employees.id))
 }
+
+export async function getProjectTaskCounts() {
+  return await db
+    .select({
+      projectName: tasks.projectName,
+      taskCount: sql<number>`count(*)`,
+    })
+    .from(tasks)
+    .where(sql`${tasks.projectName} IS NOT NULL`)
+    .groupBy(tasks.projectName)
+}
