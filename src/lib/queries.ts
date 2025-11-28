@@ -21,6 +21,7 @@ export async function getAllTasksWithEmployees() {
     .select({
       id: tasks.id,
       title: tasks.title,
+      priority: tasks.priority,
       employeeName: employees.name,
     })
     .from(tasks)

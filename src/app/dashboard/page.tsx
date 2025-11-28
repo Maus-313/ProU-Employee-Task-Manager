@@ -22,6 +22,9 @@ async function DashboardContent() {
   const stats = await getDashboardStats()
   const tasks = await getAllTasksWithEmployees()
 
+  const priorityOrder = { high: 3, medium: 2, low: 1 }
+  const sortedTasks = tasks.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority])
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
@@ -45,13 +48,15 @@ async function DashboardContent() {
           <thead className="bg-gray-50">
             <tr>
               <th className="p-4 text-left font-semibold">Task</th>
+              <th className="p-4 text-left font-semibold">Priority</th>
               <th className="p-4 text-left font-semibold">Assigned To</th>
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task) => (
+            {sortedTasks.map((task) => (
               <tr key={task.id} className="border-t">
                 <td className="p-4">{task.title}</td>
+                <td className="p-4 capitalize">{task.priority}</td>
                 <td className="p-4">{task.employeeName || 'Unassigned'}</td>
               </tr>
             ))}

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Plus, Edit, Trash2 } from 'lucide-react'
 import { createTask, updateTask, deleteTask } from './actions'
@@ -52,36 +53,64 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
               Add Task
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="bg-white">
             <DialogHeader>
               <DialogTitle>Add Task</DialogTitle>
             </DialogHeader>
             <form action={handleCreate} className="space-y-4">
-              <Input name="title" placeholder="Title" required />
-              <Input name="description" placeholder="Description" />
-              <Select name="status">
-                <SelectTrigger>
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="in_progress">In Progress</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
-                </SelectContent>
-              </Select>
-              <Input name="dueDate" type="date" />
-              <Select name="employeeId">
-                <SelectTrigger>
-                  <SelectValue placeholder="Assign to Employee" />
-                </SelectTrigger>
-                <SelectContent>
-                  {employees.map((employee) => (
-                    <SelectItem key={employee.id} value={employee.id}>
-                      {employee.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div>
+                <Label htmlFor="title">Title</Label>
+                <Input id="title" name="title" placeholder="Task title" required />
+              </div>
+              <div>
+                <Label htmlFor="description">Description</Label>
+                <Input id="description" name="description" placeholder="Task description" />
+              </div>
+              <div>
+                <Label htmlFor="status">Status</Label>
+                <Select name="status">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="in_progress">In Progress</SelectItem>
+                    <SelectItem value="completed">Completed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="priority">Priority</Label>
+                <Select name="priority">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="dueDate">Due Date</Label>
+                <Input id="dueDate" name="dueDate" type="date" />
+              </div>
+              <div>
+                <Label htmlFor="employeeId">Assign to Employee</Label>
+                <Select name="employeeId">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select employee" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {employees.map((employee) => (
+                      <SelectItem key={employee.id} value={employee.id}>
+                        {employee.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               <Button type="submit">Create</Button>
             </form>
           </DialogContent>
@@ -105,36 +134,64 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
                         <Edit className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="bg-white">
                       <DialogHeader>
                         <DialogTitle>Edit Task</DialogTitle>
                       </DialogHeader>
                       <form action={handleUpdate} className="space-y-4">
-                        <Input name="title" defaultValue={task.title} required />
-                        <Input name="description" defaultValue={task.description || ''} />
-                        <Select name="status" defaultValue={task.status}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="in_progress">In Progress</SelectItem>
-                            <SelectItem value="completed">Completed</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <Input name="dueDate" type="date" defaultValue={task.dueDate || ''} />
-                        <Select name="employeeId" defaultValue={task.employeeId || ''}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Assign to Employee" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {employees.map((employee) => (
-                              <SelectItem key={employee.id} value={employee.id}>
-                                {employee.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <div>
+                          <Label htmlFor="edit-title">Title</Label>
+                          <Input id="edit-title" name="title" defaultValue={task.title} required />
+                        </div>
+                        <div>
+                          <Label htmlFor="edit-description">Description</Label>
+                          <Input id="edit-description" name="description" defaultValue={task.description || ''} />
+                        </div>
+                        <div>
+                          <Label htmlFor="edit-status">Status</Label>
+                          <Select name="status" defaultValue={task.status}>
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="in_progress">In Progress</SelectItem>
+                              <SelectItem value="completed">Completed</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label htmlFor="edit-priority">Priority</Label>
+                          <Select name="priority" defaultValue={task.priority}>
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="low">Low</SelectItem>
+                              <SelectItem value="medium">Medium</SelectItem>
+                              <SelectItem value="high">High</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label htmlFor="edit-dueDate">Due Date</Label>
+                          <Input id="edit-dueDate" name="dueDate" type="date" defaultValue={task.dueDate || ''} />
+                        </div>
+                        <div>
+                          <Label htmlFor="edit-employeeId">Assign to Employee</Label>
+                          <Select name="employeeId" defaultValue={task.employeeId || ''}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select employee" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {employees.map((employee) => (
+                                <SelectItem key={employee.id} value={employee.id}>
+                                  {employee.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
                         <Button type="submit">Update</Button>
                       </form>
                     </DialogContent>
@@ -152,6 +209,7 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
             <CardContent>
               <p>Description: {task.description}</p>
               <p>Status: {task.status}</p>
+              <p>Priority: {task.priority}</p>
               <p>Due Date: {task.dueDate}</p>
               <p>Assigned to: {task.employee?.name || 'Unassigned'}</p>
             </CardContent>

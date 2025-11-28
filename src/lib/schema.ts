@@ -2,6 +2,7 @@ import { pgTable, uuid, text, timestamp, date, pgEnum } from 'drizzle-orm/pg-cor
 import { relations } from 'drizzle-orm'
 
 export const statusEnum = pgEnum('status', ['pending', 'in_progress', 'completed'])
+export const priorityEnum = pgEnum('priority', ['low', 'medium', 'high'])
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -25,6 +26,7 @@ export const tasks = pgTable('tasks', {
   title: text('title').notNull(),
   description: text('description'),
   status: statusEnum('status').default('pending').notNull(),
+  priority: priorityEnum('priority').default('medium').notNull(),
   dueDate: date('due_date'),
   employeeId: uuid('employee_id').references(() => employees.id, { onDelete: 'cascade' }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
