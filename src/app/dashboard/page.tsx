@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { AppLayout } from '@/components/layout/app-layout'
-import { getDashboardStats } from '@/lib/queries'
+import { getDashboardStats, getAllTasksWithEmployees } from '@/lib/queries'
 
 function DashboardSkeleton() {
   return (
@@ -20,6 +20,7 @@ function DashboardSkeleton() {
 
 async function DashboardContent() {
   const stats = await getDashboardStats()
+  const tasks = await getAllTasksWithEmployees()
 
   return (
     <div className="p-6">
@@ -37,6 +38,25 @@ async function DashboardContent() {
           <h2 className="text-lg font-semibold">Completed Tasks</h2>
           <p className="text-3xl font-bold">{stats.completedTaskCount}</p>
         </div>
+      </div>
+      <h2 className="text-xl font-bold mt-8 mb-4">All Tasks</h2>
+      <div className="bg-white shadow rounded-lg overflow-hidden">
+        <table className="w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="p-4 text-left font-semibold">Task</th>
+              <th className="p-4 text-left font-semibold">Assigned To</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map((task) => (
+              <tr key={task.id} className="border-t">
+                <td className="p-4">{task.title}</td>
+                <td className="p-4">{task.employeeName || 'Unassigned'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   )

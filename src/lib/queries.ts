@@ -16,3 +16,13 @@ export async function getDashboardStats() {
     completedTaskCount: completedResult.count,
   }
 }
+export async function getAllTasksWithEmployees() {
+  return await db
+    .select({
+      id: tasks.id,
+      title: tasks.title,
+      employeeName: employees.name,
+    })
+    .from(tasks)
+    .leftJoin(employees, eq(tasks.employeeId, employees.id))
+}
