@@ -28,6 +28,7 @@ export const tasks = pgTable('tasks', {
   status: statusEnum('status').default('pending').notNull(),
   priority: priorityEnum('priority').default('medium').notNull(),
   dueDate: date('due_date'),
+  projectName: text('project_name'),
   employeeId: uuid('employee_id').references(() => employees.id, { onDelete: 'cascade' }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })

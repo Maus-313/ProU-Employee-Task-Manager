@@ -8,7 +8,8 @@ type Task = {
   title: string
   priority: "low" | "medium" | "high"
   createdAt: Date | null
-  dueDate: Date | null
+  dueDate: string | null
+  projectName: string | null
   employeeName?: string | null
 }
 
@@ -73,6 +74,7 @@ export function TasksTable({ initialTasks }: TasksTableProps) {
                 Priority {getSortIcon("priority")}
               </button>
             </th>
+            <th className="p-4 text-left font-semibold">Project</th>
             <th className="p-4 text-left font-semibold">
               <button onClick={() => handleSort("deadline")} className="flex items-center hover:bg-gray-100 px-2 py-1 rounded">
                 Deadline {getSortIcon("deadline")}
@@ -87,6 +89,7 @@ export function TasksTable({ initialTasks }: TasksTableProps) {
                 <td className="p-4">{task.title}</td>
                 <td className="p-4">{task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'N/A'}</td>
                 <td className="p-4 capitalize">{task.priority}</td>
+                <td className="p-4">{task.projectName || 'N/A'}</td>
                 <td className="p-4">{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}</td>
                 <td className="p-4">{task.employeeName || 'Unassigned'}</td>
               </tr>

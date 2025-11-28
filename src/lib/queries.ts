@@ -24,6 +24,7 @@ export async function getAllTasksWithEmployees() {
       priority: tasks.priority,
       createdAt: tasks.createdAt,
       dueDate: tasks.dueDate,
+      projectName: tasks.projectName,
       employeeName: employees.name,
     })
     .from(tasks)

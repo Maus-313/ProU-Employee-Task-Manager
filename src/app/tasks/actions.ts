@@ -18,6 +18,7 @@ export async function createTask(formData: FormData) {
   const description = formData.get('description') as string
   const status = formData.get('status') as string
   const priority = formData.get('priority') as string
+  const projectName = formData.get('projectName') as string
   const dueDate = formData.get('dueDate') as string
   const employeeId = formData.get('employeeId') as string
 
@@ -26,6 +27,7 @@ export async function createTask(formData: FormData) {
     description,
     status: status as 'pending' | 'in_progress' | 'completed',
     priority: priority as 'low' | 'medium' | 'high',
+    projectName: projectName || null,
     dueDate: dueDate || null,
     employeeId: employeeId || null,
   })
@@ -38,6 +40,7 @@ export async function updateTask(id: string, formData: FormData) {
   const description = formData.get('description') as string
   const status = formData.get('status') as string
   const priority = formData.get('priority') as string
+  const projectName = formData.get('projectName') as string
   const dueDate = formData.get('dueDate') as string
   const employeeId = formData.get('employeeId') as string
 
@@ -48,6 +51,7 @@ export async function updateTask(id: string, formData: FormData) {
       description,
       status: status as 'pending' | 'in_progress' | 'completed',
       priority: priority as 'low' | 'medium' | 'high',
+      projectName: projectName || null,
       dueDate: dueDate || null,
       employeeId: employeeId || null,
     })

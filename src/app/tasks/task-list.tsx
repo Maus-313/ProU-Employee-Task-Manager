@@ -94,6 +94,10 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
                 </Select>
               </div>
               <div>
+                <Label htmlFor="projectName">Project Name</Label>
+                <Input id="projectName" name="projectName" placeholder="Project name" />
+              </div>
+              <div>
                 <Label htmlFor="dueDate">Due Date</Label>
                 <Input id="dueDate" name="dueDate" type="date" />
               </div>
@@ -175,6 +179,10 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
                           </Select>
                         </div>
                         <div>
+                          <Label htmlFor="edit-projectName">Project Name</Label>
+                          <Input id="edit-projectName" name="projectName" defaultValue={task.projectName || ''} />
+                        </div>
+                        <div>
                           <Label htmlFor="edit-dueDate">Due Date</Label>
                           <Input id="edit-dueDate" name="dueDate" type="date" defaultValue={task.dueDate || ''} />
                         </div>
@@ -211,6 +219,7 @@ export function TaskList({ initialTasks, employees }: TaskListProps) {
               <p>Description: {task.description}</p>
               <p>Status: {task.status}</p>
               <p>Priority: {task.priority}</p>
+              <p>Project: {task.projectName || 'N/A'}</p>
               <p>Created Date: {task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'N/A'}</p>
               <p>Due Date: {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}</p>
               <p>Assigned to: {task.employee?.name || 'Unassigned'}</p>
