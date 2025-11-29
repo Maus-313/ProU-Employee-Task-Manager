@@ -21,11 +21,16 @@ export async function getAllTasksWithEmployees() {
     .select({
       id: tasks.id,
       title: tasks.title,
+      description: tasks.description,
+      status: tasks.status,
       priority: tasks.priority,
       createdAt: tasks.createdAt,
       dueDate: tasks.dueDate,
       projectName: tasks.projectName,
-      employeeName: employees.name,
+      employee: {
+        name: employees.name,
+        email: employees.email,
+      },
     })
     .from(tasks)
     .leftJoin(employees, eq(tasks.employeeId, employees.id))

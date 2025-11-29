@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { TasksTable } from '@/components/dashboard/tasks-table'
-import { GraphicalView } from '@/components/dashboard/graphical-view'
+import { BoardView } from '@/components/dashboard/graphical-view'
 
 type ViewType = 'list' | 'graphical'
 
@@ -55,13 +55,13 @@ export function DashboardClient({ initialStats, initialTasks, initialProjectCoun
               view === 'graphical' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
-            Graphical View
+            Board View
           </button>
         </div>
       </div>
       {view === 'list' && <TasksTable initialTasks={initialTasks} />}
       {view === 'graphical' && (
-        <GraphicalView projectCounts={initialProjectCounts} onClose={() => setView('list')} />
+        <BoardView tasks={initialTasks} onClose={() => setView('list')} />
       )}
     </div>
   )
