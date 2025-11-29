@@ -3,8 +3,10 @@
 import { useState } from 'react'
 import { TasksTable } from '@/components/dashboard/tasks-table'
 import { BoardView } from '@/components/dashboard/graphical-view'
+import { ScrumView } from '@/components/dashboard/scrum-view'
+import { AgileView } from '@/components/dashboard/agile-view'
 
-type ViewType = 'list' | 'graphical'
+type ViewType = 'list' | 'kanban' | 'scrum' | 'agile'
 
 type DashboardStats = {
   employeeCount: number
@@ -19,7 +21,7 @@ interface DashboardClientProps {
 }
 
 export function DashboardClient({ initialStats, initialTasks, initialProjectCounts }: DashboardClientProps) {
-  const [view, setView] = useState<ViewType>('list')
+  const [view, setView] = useState<ViewType>('kanban')
 
   return (
     <div className="p-6">
@@ -50,18 +52,48 @@ export function DashboardClient({ initialStats, initialTasks, initialProjectCoun
             List View
           </button>
           <button
-            onClick={() => setView('graphical')}
+            onClick={() => setView('kanban')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              view === 'graphical' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
+              view === 'kanban' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
-            Board View
+            Kanban
+          </button>
+          <button
+            onClick={() => setView('scrum')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              view === 'scrum' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Scrum
+          </button>
+          <button
+            onClick={() => setView('agile')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              view === 'agile' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Agile
           </button>
         </div>
       </div>
       {view === 'list' && <TasksTable initialTasks={initialTasks} />}
-      {view === 'graphical' && (
+      {view === 'kanban' && (
         <BoardView
+          tasks={initialTasks}
+          projectCounts={initialProjectCounts}
+          onClose={() => setView('list')}
+        />
+      )}
+      {view === 'scrum' && (
+        <ScrumView
+          tasks={initialTasks}
+          projectCounts={initialProjectCounts}
+          onClose={() => setView('list')}
+        />
+      )}
+      {view === 'agile' && (
+        <AgileView
           tasks={initialTasks}
           projectCounts={initialProjectCounts}
           onClose={() => setView('list')}
