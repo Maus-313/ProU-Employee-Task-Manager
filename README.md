@@ -70,7 +70,5 @@ The app is deployed on Netlify at: [https://prou-employee-task-manager.netlify.a
 ### Environment Variables
 Set the following in your deployment environment:
 - `DATABASE_URL` - Your NeonDB connection string
-- `NEXTAUTH_SECRET` - Random secret for NextAuth
-- `NEXTAUTH_URL` - Your deployment URL
 
 Deploy to Vercel, Netlify, or any Next.js-compatible platform.
