@@ -7,7 +7,34 @@ Streamline employee and task management with a sleek Next.js app powered by Type
 - **Dashboard**: Real-time stats on employees, tasks, and completions.
 - **Employee Management**: CRUD operations for employee records.
 - **Task Management**: Assign, track, and update tasks with due dates.
+- **Multiple View Modes**: Switch between List, Kanban, Scrum, and Agile views for flexible task visualization.
+- **Project Filtering**: Filter tasks by project in Board View for better organization.
+- **Authentication**: NextAuth.js integration with secure login/logout functionality.
 - **Responsive UI**: Built with Tailwind CSS and Shadcn/UI for seamless mobile experience.
+- **Advanced UI Components**: Modal dialogs with proper styling and user experience.
+
+## Bonus Features Implemented
+
+This project demonstrates advanced features that go beyond basic CRUD operations:
+
+### 🎯 Multiple View Modes (Creative UX)
+- **Kanban Board**: Traditional status-based columns (To Do, In Progress, Done) with drag-and-drop functionality
+- **Scrum View**: Sprint planning interface with tasks sorted by priority and due date, numbered for backlog management
+- **Agile Timeline**: Calendar-based view organizing tasks by due dates with completion tracking and visual progress indicators
+- **List View**: Traditional table format for detailed task management
+
+
+### 🎨 Advanced UI/UX Features
+- **Project Filtering**: Dynamic project selection in Board View with task count display
+- **Responsive Design**: Mobile-first approach with seamless cross-device experience
+- **Modal Dialogs**: Properly styled dialogs with white backgrounds for better readability
+- **Interactive Components**: Hover effects, transitions, and intuitive navigation
+- **Data Visualization**: Progress indicators, status badges, and priority color coding
+
+### 🚀 Deployment Ready
+- Netlify deployment configuration included
+- Environment variable management for production
+- Optimized build process for fast loading times
 
 ## Tech Stack
 
@@ -15,6 +42,7 @@ Streamline employee and task management with a sleek Next.js app powered by Type
 - TypeScript
 - NeonDB (Serverless PostgreSQL)
 - Drizzle ORM
+- NextAuth.js (Authentication)
 - Tailwind CSS + Shadcn/UI
 - Lucide React Icons
 
