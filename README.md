@@ -35,6 +35,7 @@ This project demonstrates advanced features that go beyond basic CRUD operations
 - Netlify deployment configuration included
 - Environment variable management for production
 - Optimized build process for fast loading times
+- **Fresh Data Guarantee**: Dynamic rendering and no-cache headers ensure deployed version always shows latest database data
 
 ## Tech Stack
 

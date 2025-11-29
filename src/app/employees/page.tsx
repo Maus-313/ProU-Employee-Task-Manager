@@ -3,6 +3,10 @@ import { AppLayout } from '@/components/layout/app-layout'
 import { getEmployees } from './actions'
 import { EmployeeList } from './employee-list'
 
+// Force dynamic rendering to ensure fresh data on every request
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 function EmployeesSkeleton() {
   return (
     <div className="p-6">

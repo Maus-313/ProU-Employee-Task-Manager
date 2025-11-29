@@ -4,6 +4,10 @@ import { getTasks } from './actions'
 import { getEmployees } from '../employees/actions'
 import { TaskList } from './task-list'
 
+// Force dynamic rendering to ensure fresh data on every request
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 function TasksSkeleton() {
   return (
     <div className="p-6">
