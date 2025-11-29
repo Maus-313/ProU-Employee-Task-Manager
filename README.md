@@ -19,8 +19,8 @@ This project demonstrates advanced features that go beyond basic CRUD operations
 
 ### 🎯 Multiple View Modes (Creative UX)
 - **Kanban Board**: Traditional status-based columns (To Do, In Progress, Done) with drag-and-drop functionality
-- **Scrum View**: Sprint planning interface with tasks sorted by priority and due date, numbered for backlog management
-- **Agile Timeline**: Calendar-based view organizing tasks by due dates with completion tracking and visual progress indicators
+- **Scrum View**: [Under Developement]Sprint planning interface with tasks sorted by priority and due date, numbered for backlog management
+- **Agile Timeline**: [Under Developement]Calendar-based view organizing tasks by due dates with completion tracking and visual progress indicators
 - **List View**: Traditional table format for detailed task management
 
 
