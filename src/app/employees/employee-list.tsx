@@ -50,7 +50,7 @@ export function EmployeeList({ initialEmployees }: EmployeeListProps) {
               Add Employee
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="bg-white">
             <DialogHeader>
               <DialogTitle>Add Employee</DialogTitle>
             </DialogHeader>
@@ -82,7 +82,7 @@ export function EmployeeList({ initialEmployees }: EmployeeListProps) {
                         <Edit className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="bg-white">
                       <DialogHeader>
                         <DialogTitle>Edit Employee</DialogTitle>
                       </DialogHeader>

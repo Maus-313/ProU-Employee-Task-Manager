@@ -100,7 +100,7 @@ export function BoardView({ tasks: initialTasks, projectCounts, onClose }: Graph
             <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select project" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               <SelectItem value="all">All Projects</SelectItem>
               {projectCounts.map((project) => (
                 <SelectItem key={project.projectName || 'null'} value={project.projectName || ''}>
