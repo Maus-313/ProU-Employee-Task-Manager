@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { X, Calendar, User, Flag } from 'lucide-react'
+import { X, Calendar, User, Flag, Filter } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 interface Task {
   id: string
@@ -18,8 +19,14 @@ interface Task {
   } | null
 }
 
+interface ProjectCount {
+  projectName: string | null
+  taskCount: number
+}
+
 interface GraphicalViewProps {
   tasks: Task[]
+  projectCounts: ProjectCount[]
   onClose: () => void
 }
 
@@ -35,9 +42,10 @@ const priorityColors = {
   high: 'text-red-600',
 }
 
-export function BoardView({ tasks: initialTasks, onClose }: GraphicalViewProps) {
+export function BoardView({ tasks: initialTasks, projectCounts, onClose }: GraphicalViewProps) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
   const [draggedTask, setDraggedTask] = useState<Task | null>(null)
+  const [selectedProject, setSelectedProject] = useState<string>('all')
 
   const handleDragStart = (e: React.DragEvent, task: Task) => {
     setDraggedTask(task)
@@ -65,7 +73,10 @@ export function BoardView({ tasks: initialTasks, onClose }: GraphicalViewProps) 
   }
 
   const getTasksByStatus = (status: string) => {
-    return tasks.filter(task => task.status === status)
+    const filteredTasks = selectedProject === 'all'
+      ? tasks
+      : tasks.filter(task => task.projectName === selectedProject)
+    return filteredTasks.filter(task => task.status === status)
   }
 
   return (
@@ -80,6 +91,25 @@ export function BoardView({ tasks: initialTasks, onClose }: GraphicalViewProps) 
         </button>
       </div>
       <div className="p-4">
+        <div className="mb-4 flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4" />
+            <span className="text-sm font-medium">Filter by Project:</span>
+          </div>
+          <Select value={selectedProject} onValueChange={setSelectedProject}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Select project" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Projects</SelectItem>
+              {projectCounts.map((project) => (
+                <SelectItem key={project.projectName || 'null'} value={project.projectName || ''}>
+                  {project.projectName || 'No Project'} ({project.taskCount})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
         <div className="flex gap-4 overflow-x-auto pb-4 min-h-[600px]">
           {statusColumns.map((column) => (
             <div

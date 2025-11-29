@@ -61,7 +61,11 @@ export function DashboardClient({ initialStats, initialTasks, initialProjectCoun
       </div>
       {view === 'list' && <TasksTable initialTasks={initialTasks} />}
       {view === 'graphical' && (
-        <BoardView tasks={initialTasks} onClose={() => setView('list')} />
+        <BoardView
+          tasks={initialTasks}
+          projectCounts={initialProjectCounts}
+          onClose={() => setView('list')}
+        />
       )}
     </div>
   )
